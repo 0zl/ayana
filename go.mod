@@ -2,12 +2,14 @@ module github.com/0zl/ayana
 
 go 1.22.2
 
-require github.com/gofiber/fiber/v3 v3.0.0-beta.3
+require (
+	github.com/bep/godartsass v1.2.0
+	github.com/gofiber/fiber/v3 v3.0.0-beta.3
+)
 
 require (
 	github.com/Joker/hpp v1.0.0 // indirect
 	github.com/Joker/jade v1.1.3 // indirect
-	github.com/bep/godartsass v1.2.0 // indirect
 	github.com/cli/safeexec v1.0.0 // indirect
 	github.com/gofiber/template v1.8.3 // indirect
 	github.com/gofiber/utils v1.1.0 // indirect
