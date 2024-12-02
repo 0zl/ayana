@@ -61,8 +61,8 @@ func New() *Server {
 func (s *Server) SetupRoutes() {
 	s.app.Get("/", func(c fiber.Ctx) error {
 		return c.Render("pages/index", fiber.Map{
-			"title": "Ayana!",
-		})
+			"Title": "Ayana!",
+		}, "layouts/main")
 	})
 }
 
