@@ -19,11 +19,6 @@ func New() *Server {
 		Views: engine,
 	})
 
-	app.Use(func(c fiber.Ctx) error {
-		c.Set("Content-Security-Policy", "default-src 'self'")
-		return c.Next()
-	})
-
 	app.Use("/style.css", func(c fiber.Ctx) error {
 		mainScss := "./web/styles/main.scss"
 
