@@ -3,7 +3,7 @@ package server
 import (
 	"os"
 
-	"github.com/bep/godartsass"
+	"github.com/bep/golibsass/libsass"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/template/pug/v2"
 )
@@ -27,23 +27,19 @@ func New() *Server {
 	app.Use("/style.css", func(c fiber.Ctx) error {
 		mainScss := "./web/styles/main.scss"
 
-		transpiler, err := godartsass.Start(godartsass.Options{})
+		transpiler, err := libsass.New(libsass.Options{
+			OutputStyle: libsass.CompressedStyle,
+		})
 		if err != nil {
 			return err
 		}
-
-		defer transpiler.Close()
 
 		scssContent, err := os.ReadFile(mainScss)
 		if err != nil {
 			return err
 		}
 
-		res, err := transpiler.Execute(godartsass.Args{
-			Source:       string(scssContent),
-			IncludePaths: []string{"./web/styles"},
-			OutputStyle:  godartsass.OutputStyleCompressed,
-		})
+		res, err := transpiler.Execute(string(scssContent))
 
 		if err != nil {
 			return err
@@ -60,9 +56,9 @@ func New() *Server {
 
 func (s *Server) SetupRoutes() {
 	s.app.Get("/", func(c fiber.Ctx) error {
-		return c.Render("pages/index", fiber.Map{
+		return c.Render("index", fiber.Map{
 			"Title": "Ayana!",
-		}, "layouts/main")
+		}, "layout")
 	})
 }
 
